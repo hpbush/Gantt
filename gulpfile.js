@@ -1,0 +1,88 @@
+// ////////////////////////////////////////////////////////////////////////////
+// Required
+// ////////////////////////////////////////////////////////////////////////////
+var gulp = require('gulp');
+var jade = require('gulp-jade');
+var sass = require('gulp-sass');
+var plumber = require('gulp-plumber');
+var babel = require('gulp-babel');
+var autoprefixer = require('gulp-autoprefixer');
+var browserSync = require('browser-sync').create();
+var reload = browserSync.reload;
+
+// ////////////////////////////////////////////////////////////////////////////
+// build js
+// ////////////////////////////////////////////////////////////////////////////
+gulp.task('buildJs', function(){
+  return gulp.src('src/pages/projectHome.js')
+    .pipe(plumber())
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(gulp.dest('build'))
+    .pipe(reload({stream: true}));
+});
+
+// ////////////////////////////////////////////////////////////////////////////
+// index.jade => html
+// ////////////////////////////////////////////////////////////////////////////
+gulp.task('buildIndexHTML', function(){
+  return gulp.src('jade/projectHome.jade')
+    .pipe(plumber())
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('./'))
+    .pipe(reload({stream: true}));
+});
+
+// ////////////////////////////////////////////////////////////////////////////
+// jade => html
+// ////////////////////////////////////////////////////////////////////////////
+gulp.task('buildHTML', function(){
+  return gulp.src('jade/components/*.jade')
+    .pipe(plumber())
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('pages'))
+    .pipe(reload({stream: true}));
+});
+
+// ////////////////////////////////////////////////////////////////////////////
+// sass => css
+// ////////////////////////////////////////////////////////////////////////////
+gulp.task('buildCSS', function(){
+  return gulp.src('./sass/main.sass')
+    .pipe(plumber())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer('last 2 versions'))
+    .pipe(gulp.dest('./css'))
+    .pipe(reload({stream: true}));
+});
+
+// ////////////////////////////////////////////////////////////////////////////
+// browser-sync
+// ////////////////////////////////////////////////////////////////////////////
+gulp.task('browser-sync', function(){
+  browserSync.init({
+    server:{
+      baseDir: './',
+      index: 'projectHome.html'
+    }
+  });
+});
+
+// ////////////////////////////////////////////////////////////////////////////
+// Watch
+// ////////////////////////////////////////////////////////////////////////////
+gulp.task('watch', function(){
+  gulp.watch('./sass/**/*.sass', ['buildCSS']);
+  gulp.watch('jade/index.jade', ['buildIndexHTML']);
+  gulp.watch('jade/components/**/*.jade', ['buildHTML', ['buildIndexHTML']]);
+  gulp.watch('src/**/*.js', ['buildJs']);
+});
+// ////////////////////////////////////////////////////////////////////////////
+// Default
+// ////////////////////////////////////////////////////////////////////////////
+gulp.task('default', ['buildJs','buildIndexHTML', 'buildHTML', 'buildCSS', 'browser-sync', 'watch']);

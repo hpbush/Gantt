@@ -1,0 +1,69 @@
+
+<html> 
+  <head>
+    <link rel="stylesheet" type="text/css" href="../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../resources/font-awesome-4.5.0/css/font-awesome.min.css"/>
+  </head>
+  <body>
+    <div class="window">
+      <div id="gantt_Housing" class="gantt_Housing">
+        <div id="gantt_Chart" class="gantt_Chart"></div>
+        <div id="addDependencyPopUp" class="addDependencyPopUp hide">
+          <form id="addDependencyPopUp" class="smPopUp">
+            <button id="addDependencyConfirm" class="confirmBtn Btn">Accept</button>
+            <button id="addDependencyCancel" class="cancelBtn Btn">Cancel</button>
+          </form>
+        </div>
+      </div>
+      <div class="addTaskDiv">
+        <form id="addTask">
+          <label id="taskNameAddLabel" class="label">Name:
+            <input id="taskName" class="input"/>
+          </label>
+          <label id="durationAddLabel" class="label">Duration:
+            <input id="targetDuration" class="input"/>
+          </label>
+          <label id="startDateAddLabel" class="label">Start Date:
+            <input id="startDate" type="date" class="input"/>
+          </label>
+          <label id="dependenciesLabel" class="label">Dependencies:
+            <input id="parentTaskList" class="input"/>
+          </label>
+          <button id="submitTask">Add Task</button>
+        </form>
+      </div>
+    </div>
+    <div id="taskEditPopUp" class="popUp hide">
+      <form>
+        <label id="nameLabel" class="popUpLabel">Name:
+          <input id="namePopUp" defaultValue="" type="textBox" class="popUpField"/>
+        </label>
+        <label id="targetDurationLabel" class="popUpLabel">Target Duration:
+          <p id="targetDurationPopUp" class="popUpField"></p>
+        </label>
+        <label id="trueDurationLabel" class="popUpLabel">True Duration:
+          <p id="trueDurationPopUp" class="popUpField"></p>
+        </label>
+        <label id="delayLabel" class="popUpLabel">Delay:
+          <input id="delayPopUp" defaultValue="" type="textBox" class="popUpField"/>
+        </label>
+        <label id="startDateLabel" class="popUpLabel">Start Date:
+          <input id="startDatePopUp" defaultValue="" type="date" class="popUpField"/>
+        </label>
+        <label id="targetEndDateLabel" class="popUpLabel">Target End:
+          <input id="targetEndDatePopUp" defaultValue="" type="date" class="popUpField"/>
+        </label>
+        <label id="trueEndDateLabel" class="popUpLabel">Projected End:
+          <p id="trueEndDatePopUp" defaultValue="" type="date" class="popUpField"></p>
+        </label>
+        <label id="dependencyListLabel">Dependency List</label>
+        <div class="dependencyList">
+          <ul id="dependencyUL" class="popUpUL"></ul>
+        </div>
+        <button id="addDependencyBtn" class="popUpButton">Add Dependency</button>
+        <button id="popUpSubmitBtn" class="popUpButton">Submit</button>
+      </form>
+    </div>
+  </body>
+  <script src="../build/projectHome.js"></script>
+</html>

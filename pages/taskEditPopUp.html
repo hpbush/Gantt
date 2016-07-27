@@ -1,0 +1,32 @@
+
+<div id="taskEditPopUp" class="popUp hide">
+  <form>
+    <label id="nameLabel" class="popUpLabel">Name:
+      <input id="namePopUp" defaultValue="" type="textBox" class="popUpField"/>
+    </label>
+    <label id="targetDurationLabel" class="popUpLabel">Target Duration:
+      <p id="targetDurationPopUp" class="popUpField"></p>
+    </label>
+    <label id="trueDurationLabel" class="popUpLabel">True Duration:
+      <p id="trueDurationPopUp" class="popUpField"></p>
+    </label>
+    <label id="delayLabel" class="popUpLabel">Delay:
+      <input id="delayPopUp" defaultValue="" type="textBox" class="popUpField"/>
+    </label>
+    <label id="startDateLabel" class="popUpLabel">Start Date:
+      <input id="startDatePopUp" defaultValue="" type="date" class="popUpField"/>
+    </label>
+    <label id="targetEndDateLabel" class="popUpLabel">Target End:
+      <input id="targetEndDatePopUp" defaultValue="" type="date" class="popUpField"/>
+    </label>
+    <label id="trueEndDateLabel" class="popUpLabel">Projected End:
+      <p id="trueEndDatePopUp" defaultValue="" type="date" class="popUpField"></p>
+    </label>
+    <label id="dependencyListLabel">Dependency List</label>
+    <div class="dependencyList">
+      <ul id="dependencyUL" class="popUpUL"></ul>
+    </div>
+    <button id="addDependencyBtn" class="popUpButton">Add Dependency</button>
+    <button id="popUpSubmitBtn" class="popUpButton">Submit</button>
+  </form>
+</div>

@@ -1,0 +1,108 @@
+.popUp
+  position: fixed
+  padding-left: 5px
+  height: 800px
+  width: 195px
+  border: 1px solid #000
+  box-shadow: 10px 10px 10px #777
+  background-color: white
+  transition: transform .3s ease-in-out
+  .popUpButton
+    position: absolute
+    width: 100px
+    height: 30px
+    border: none
+    border-radius: 5px
+    left: 50px
+    &:hover
+      background-color: black
+      color: white
+  #addDependencyBtn
+    top: 720px
+  #popUpSubmitBtn
+    bottom: 10px
+  .popUpLabel
+    position: absolute
+    font-size: 1em
+  #nameLabel
+    top: 10px
+  #targetDurationLabel
+    top: 60px
+  #trueDurationLabel
+    top: 110px
+  #startDateLabel
+    top: 160px
+  #startDatePopUp
+    font-size: 10px
+  #targetEndDateLabel
+    top: 210px
+  #targetEndDatePopUp
+    font-size: 10px
+  #trueEndDateLabel
+    top: 310px
+  #delayLabel
+    top: 260px
+  #delayPopUp
+    width: 30px
+    text-align: center
+  #targetDurationPopUp
+    position: absolute
+    top: 3px
+    left: 110px
+    margin: 0px
+    width: 20px
+  #trueDurationPopUp
+    position: absolute
+    top: 3px
+    left: 110px
+    margin: 0px
+    width: 20px
+  #dependencyListLabel
+    position: absolute
+    top: 400px
+    left: 25px
+  #trueEndDatePopUp
+    position: absolute
+    width: 80px
+    top: 1.5px
+    left: 100px
+  .popUpField
+    width: 115px
+    margin: 0
+    font-size: 12px
+  .dependencyList
+    position: absolute
+    top: 420px
+    left: 25px
+    height: 280px
+    width: 150px
+    overflow-y: scroll
+    overflow-x: hidden
+    border: 1px solid black
+    .popUpUL
+      position: absolute
+      top: 0px
+      left: 0px
+      width: 100%
+      margin: 0
+      padding: 0
+      li
+        list-style-type: none
+        display: flex
+        align-items: center
+        justify-content: space-between
+        border-bottom: 1px solid #ccc
+        height: 30px
+        width: 100%
+        left: 0
+        font-size: 18px
+        padding-left: 10px
+        cursor: default
+        i
+          cursor: pointer
+          color: #960917
+          margin-right: 15px
+.hide
+  transform: translateY(1000px)
+.show
+  display: default

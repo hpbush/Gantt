@@ -1,0 +1,622 @@
+.container-xs {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  min-width: 640px; }
+
+.container-s {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  min-width: 750px; }
+
+.container-m {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  min-width: 1080px; }
+
+.container-l {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  min-width: 2048px; }
+
+.col-lg-12 {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-width: 2048px; }
+
+.col-m-12 {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-width: 1080px; }
+
+.col-sm-12 {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-width: 750px; }
+
+.col-xs-12 {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-width: 640px; }
+
+.col-lg-11 {
+  position: relative;
+  float: left;
+  width: 91.66667%;
+  min-width: 1877.33333px; }
+
+.col-m-11 {
+  position: relative;
+  float: left;
+  width: 91.66667%;
+  min-width: 990px; }
+
+.col-sm-11 {
+  position: relative;
+  float: left;
+  width: 91.66667%;
+  min-width: 687.5px; }
+
+.col-xs-11 {
+  position: relative;
+  float: left;
+  width: 91.66667%;
+  min-width: 586.66667px; }
+
+.col-lg-10 {
+  position: relative;
+  float: left;
+  width: 83.33333%;
+  min-width: 1706.66667px; }
+
+.col-m-10 {
+  position: relative;
+  float: left;
+  width: 83.33333%;
+  min-width: 900px; }
+
+.col-sm-10 {
+  position: relative;
+  float: left;
+  width: 83.33333%;
+  min-width: 625px; }
+
+.col-xs-10 {
+  position: relative;
+  float: left;
+  width: 83.33333%;
+  min-width: 533.33333px; }
+
+.col-lg-9 {
+  position: relative;
+  float: left;
+  width: 75%;
+  min-width: 1536px; }
+
+.col-m-9 {
+  position: relative;
+  float: left;
+  width: 75%;
+  min-width: 810px; }
+
+.col-sm-9 {
+  position: relative;
+  float: left;
+  width: 75%;
+  min-width: 562.5px; }
+
+.col-xs-9 {
+  position: relative;
+  float: left;
+  width: 75%;
+  min-width: 480px; }
+
+.col-lg-8 {
+  position: relative;
+  float: left;
+  width: 66.66667%;
+  min-width: 1365.33333px; }
+
+.col-m-8 {
+  position: relative;
+  float: left;
+  width: 66.66667%;
+  min-width: 720px; }
+
+.col-sm-8 {
+  position: relative;
+  float: left;
+  width: 66.66667%;
+  min-width: 500px; }
+
+.col-xs-8 {
+  position: relative;
+  float: left;
+  width: 66.66667%;
+  min-width: 426.66667px; }
+
+.col-lg-7 {
+  position: relative;
+  float: left;
+  width: 58.33333%;
+  min-width: 1194.66667px; }
+
+.col-m-7 {
+  position: relative;
+  float: left;
+  width: 58.33333%;
+  min-width: 630px; }
+
+.col-sm-7 {
+  position: relative;
+  float: left;
+  width: 58.33333%;
+  min-width: 437.5px; }
+
+.col-xs-7 {
+  position: relative;
+  float: left;
+  width: 58.33333%;
+  min-width: 373.33333px; }
+
+.col-lg-6 {
+  position: relative;
+  float: left;
+  width: 50%;
+  min-width: 1024px; }
+
+.col-m-6 {
+  position: relative;
+  float: left;
+  width: 50%;
+  min-width: 540px; }
+
+.col-sm-6 {
+  position: relative;
+  float: left;
+  width: 50%;
+  min-width: 375px; }
+
+.col-xs-6 {
+  position: relative;
+  float: left;
+  width: 50%;
+  min-width: 320px; }
+
+.col-lg-5 {
+  position: relative;
+  float: left;
+  width: 41.66667%;
+  min-width: 853.33333px; }
+
+.col-m-5 {
+  position: relative;
+  float: left;
+  width: 41.66667%;
+  min-width: 450px; }
+
+.col-sm-5 {
+  position: relative;
+  float: left;
+  width: 41.66667%;
+  min-width: 312.5px; }
+
+.col-xs-5 {
+  position: relative;
+  float: left;
+  width: 41.66667%;
+  min-width: 266.66667px; }
+
+.col-lg-4 {
+  position: relative;
+  float: left;
+  width: 33.33333%;
+  min-width: 682.66667px; }
+
+.col-m-4 {
+  position: relative;
+  float: left;
+  width: 33.33333%;
+  min-width: 360px; }
+
+.col-sm-4 {
+  position: relative;
+  float: left;
+  width: 33.33333%;
+  min-width: 250px; }
+
+.col-xs-4 {
+  position: relative;
+  float: left;
+  width: 33.33333%;
+  min-width: 213.33333px; }
+
+.col-lg-3 {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-width: 512px; }
+
+.col-m-3 {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-width: 270px; }
+
+.col-sm-3 {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-width: 187.5px; }
+
+.col-xs-3 {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-width: 157.5px; }
+
+.col-lg-2 {
+  position: relative;
+  float: left;
+  width: 16.66667%;
+  min-width: 341.33333px; }
+
+.col-m-2 {
+  position: relative;
+  float: left;
+  width: 16.66667%;
+  min-width: 180px; }
+
+.col-sm-2 {
+  position: relative;
+  float: left;
+  width: 16.66667%;
+  min-width: 125px; }
+
+.col-xs-2 {
+  position: relative;
+  float: left;
+  width: 16.66667%;
+  min-width: 106.66667px; }
+
+.col-lg-1 {
+  position: relative;
+  float: left;
+  width: 8.33333%;
+  min-width: 170.66667px; }
+
+.col-m-1 {
+  position: relative;
+  float: left;
+  width: 8.33333%;
+  min-width: 90px; }
+
+.col-sm-1 {
+  position: relative;
+  float: left;
+  width: 8.33333%;
+  min-width: 62.5px; }
+
+.col-xs-1 {
+  position: relative;
+  float: left;
+  width: 8.33333%;
+  min-width: 53.33333px; }
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5; }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #d5d5d5;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb; }
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5; }
+
+.header {
+  height: 100px;
+  border-bottom: 1px solid black; }
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.title {
+  font-size: 2.5rem; }
+
+.popUp {
+  position: fixed;
+  padding-left: 5px;
+  height: 800px;
+  width: 195px;
+  border: 1px solid #000;
+  box-shadow: 10px 10px 10px #777;
+  background-color: white;
+  transition: transform .3s ease-in-out; }
+  .popUp .popUpButton {
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    left: 50px; }
+    .popUp .popUpButton:hover {
+      background-color: black;
+      color: white; }
+  .popUp #addDependencyBtn {
+    top: 720px; }
+  .popUp #popUpSubmitBtn {
+    bottom: 10px; }
+  .popUp .popUpLabel {
+    position: absolute;
+    font-size: 1em; }
+  .popUp #nameLabel {
+    top: 10px; }
+  .popUp #targetDurationLabel {
+    top: 60px; }
+  .popUp #trueDurationLabel {
+    top: 110px; }
+  .popUp #startDateLabel {
+    top: 160px; }
+  .popUp #startDatePopUp {
+    font-size: 10px; }
+  .popUp #targetEndDateLabel {
+    top: 210px; }
+  .popUp #targetEndDatePopUp {
+    font-size: 10px; }
+  .popUp #trueEndDateLabel {
+    top: 310px; }
+  .popUp #delayLabel {
+    top: 260px; }
+  .popUp #delayPopUp {
+    width: 30px;
+    text-align: center; }
+  .popUp #targetDurationPopUp {
+    position: absolute;
+    top: 3px;
+    left: 110px;
+    margin: 0px;
+    width: 20px; }
+  .popUp #trueDurationPopUp {
+    position: absolute;
+    top: 3px;
+    left: 110px;
+    margin: 0px;
+    width: 20px; }
+  .popUp #dependencyListLabel {
+    position: absolute;
+    top: 400px;
+    left: 25px; }
+  .popUp #trueEndDatePopUp {
+    position: absolute;
+    width: 80px;
+    top: 1.5px;
+    left: 100px; }
+  .popUp .popUpField {
+    width: 115px;
+    margin: 0;
+    font-size: 12px; }
+  .popUp .dependencyList {
+    position: absolute;
+    top: 420px;
+    left: 25px;
+    height: 280px;
+    width: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid black; }
+    .popUp .dependencyList .popUpUL {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      margin: 0;
+      padding: 0; }
+      .popUp .dependencyList .popUpUL li {
+        list-style-type: none;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+            align-items: center;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+        height: 30px;
+        width: 100%;
+        left: 0;
+        font-size: 18px;
+        padding-left: 10px;
+        cursor: default; }
+        .popUp .dependencyList .popUpUL li i {
+          cursor: pointer;
+          color: #960917;
+          margin-right: 15px; }
+
+.hide {
+  transform: translateY(1000px); }
+
+.show {
+  display: default; }
+
+.addDependencyPopUp {
+  position: absolute;
+  bottom: 0px;
+  width: 200px;
+  height: 30px;
+  left: 50%;
+  bottom: 0px;
+  transition: transform .3s ease-in-out; }
+  .addDependencyPopUp .hide {
+    transform: translateY(20px); }
+  .addDependencyPopUp form {
+    position: absolute;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-align: center;
+        align-items: center;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    background-color: #ddd;
+    border: 1px solid #777;
+    border-bottom: none;
+    border-radius: 5px 5px 0px 0px;
+    box-shadow: 2px 5px 10px 3px #777; }
+    .addDependencyPopUp form .Btn {
+      height: 75%;
+      border: 2px solid black;
+      border-radius: 15%;
+      color: #fff;
+      transition: background-color .1s ease-in-out, color .1s ease-in-out;
+      cursor: pointer;
+      outline: 0; }
+      .addDependencyPopUp form .Btn:hover {
+        background-color: white;
+        color: #666; }
+      .addDependencyPopUp form .Btn:active {
+        box-shadow: inset 2px 2px 5px #666;
+        color: #000; }
+    .addDependencyPopUp form .confirmBtn {
+      background-color: #23B530; }
+    .addDependencyPopUp form .cancelBtn {
+      background-color: #D2484D; }
+
+.window {
+  position: absolute;
+  height: 800px;
+  width: 95vw;
+  border: 1px solid #777;
+  overflow: hidden; }
+
+.gantt_Housing {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  left: 200px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-align: center;
+      align-items: center; }
+
+.addTaskDiv {
+  position: absolute;
+  display: -ms-flexbox;
+  display: flex;
+  border-right: 3px solid #777;
+  top: 0px;
+  height: 800px;
+  width: 200px;
+  background-color: #ddd; }
+  .addTaskDiv .label {
+    position: absolute;
+    left: 5px; }
+  .addTaskDiv .input {
+    position: absolute;
+    top: 0px;
+    left: 80px;
+    width: 110px; }
+  .addTaskDiv #taskNameAddLabel {
+    top: 10%; }
+  .addTaskDiv #durationAddLabel {
+    top: 30%; }
+  .addTaskDiv #startDateAddLabel {
+    top: 50%; }
+  .addTaskDiv #startDate {
+    font-size: 10px; }
+  .addTaskDiv #dependenciesLabel {
+    top: 70%; }
+  .addTaskDiv #parentTaskList {
+    top: 20px;
+    left: 0px;
+    width: 200%;
+    text-align: justify; }
+  .addTaskDiv #submitTask {
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    left: 50px;
+    top: 90%;
+    cursor: pointer;
+    background-color: #23B530;
+    border: 2px solid black;
+    border-radius: 15%;
+    color: white;
+    transition: background-color .1s ease-in-out, color .1s ease-in-out; }
+    .addTaskDiv #submitTask:hover {
+      background-color: white;
+      color: #666; }
+
+.gantt_Chart {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  position: relative;
+  border: 1px solid #777;
+  border-radius: 7px;
+  width: 90%;
+  height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-shadow: 0px 0px 50px 0px #999; }
+
+.ganttDayDisplay {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  top: 0px;
+  height: 100%;
+  overflow: visible; }
+
+.taskDiv {
+  position: absolute;
+  left: 0px;
+  height: 50px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  cursor: pointer;
+  overflow: hidden; }
+  .taskDiv.select {
+    box-shadow: 0px 0px 5px 2px gold; }
+  .taskDiv.active {
+    box-shadow: 0px 0px 5px 2px #2BDD3C; }
+  .taskDiv .taskDivChild {
+    position: absolute;
+    height: 100%; }
+
+.ganttDayDisplayLabel {
+  position: fixed;
+  top: 20px;
+  transform: rotate(45deg); }
+
+.taskDivLabel {
+  position: relative; }
