@@ -517,9 +517,7 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -ms-flex-align: center;
-      align-items: center; }
+      justify-content: space-around; }
 
 .addTaskDiv {
   position: absolute;
@@ -575,6 +573,7 @@
   -ms-flex-pack: distribute;
       justify-content: space-around;
   position: relative;
+  top: 70px;
   border: 1px solid #777;
   border-radius: 7px;
   width: 90%;
@@ -583,7 +582,7 @@
   overflow-x: hidden;
   box-shadow: 0px 0px 50px 0px #999; }
 
-.ganttDayDisplay {
+.calendarUnitBlock {
   position: relative;
   display: -ms-flexbox;
   display: flex;
@@ -613,9 +612,10 @@
     position: absolute;
     height: 100%; }
 
-.ganttDayDisplayLabel {
+.calendarUnitBlockLabel {
   position: fixed;
-  top: 20px;
+  top: 55px;
+  transform-origin: bottom right;
   transform: rotate(45deg); }
 
 .taskDivLabel {
