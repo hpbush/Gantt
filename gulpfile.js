@@ -78,7 +78,7 @@ gulp.task('browser-sync', function(){
 // ////////////////////////////////////////////////////////////////////////////
 gulp.task('watch', function(){
   gulp.watch('./sass/**/*.sass', ['buildCSS']);
-  gulp.watch('jade/index.jade', ['buildIndexHTML']);
+  gulp.watch('jade/projectHome.jade', ['buildIndexHTML']);
   gulp.watch('jade/components/**/*.jade', ['buildHTML', ['buildIndexHTML']]);
   gulp.watch('src/**/*.js', ['buildJs']);
 });

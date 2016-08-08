@@ -18,6 +18,10 @@ class Schedule{
   addTaskToSchedule(task){
     this.tasks.push(task);
   }
+
+  replaceTasksWithOrganized(tasks){
+    this.tasks = tasks
+  }
 }
 
 class Task{
@@ -30,6 +34,7 @@ class Task{
     this.endDate = endDate;
     this.delayDays = 0;
     this.id = systemIdGenerator.assignId();
+    this.calendarBlocks = [];
   }
 
   addParent(parent){
@@ -89,14 +94,24 @@ class Task{
   getId(){
     return this.id;
   }
+
+  setCalendarBlocksInTask(calendarBlockArr){
+    this.calendarBlocks = calendarBlockArr;
+  }
+
+  getCalendarBlocks(){
+    return this.calendarBlocks;
+  }
 }
 
 class Printer{
   constructor(){
     this.units = 'month';
-    this.numberOfUnitsToDisplay = 24;
+    this.numberOfUnitsToDisplay = 10;
     this.startDate = new Date(2016, 0, 1);
     this.endDate;
+    this.labelClassName;
+    this.MilisecondsPerDay = 86400000;
   }
 
   convertUnitsToDays(numberOfUnits, startDate){
@@ -162,6 +177,26 @@ class Printer{
     return 0;
   }
 
+  createDiv(parent, className, style){
+    let div = document.createElement('div');
+    div.setAttribute('class', className);
+    div.style.backgroundColor = style.color;
+    div.style.width = style.width;
+    if(style.left){
+      div.style.left = style.left;
+    }
+    parent.appendChild(div);
+    return div;
+  }
+
+  createLabelFor(div, content){
+    let label = document.createElement('label');
+    label.setAttribute('class', this.labelClassName);
+    let labelContent = document.createTextNode(content);
+    label.appendChild(labelContent);
+    div.appendChild(label);
+  }
+
 }
 
 class CalendarPrinter extends Printer{
@@ -169,6 +204,8 @@ class CalendarPrinter extends Printer{
     super();
     this.primaryColor = '#999';
     this.secondaryColor = '#eee';
+    this.divClassName = 'calendarUnitBlock';
+    this.labelClassName = 'calendarUnitBlockLabel';
     this.calendarBlocks = [];
   }
 
@@ -189,37 +226,29 @@ class CalendarPrinter extends Printer{
     if(currentBlock%2 === 0){
       style.color = this.primaryColor;
     }
-    this.calendarBlocks.push(this.createDiv(style));
-    let indexOfDiv = this.calendarBlocks.length-1;
-    let div = this.calendarBlocks[indexOfDiv];
-    this.createLabelFor(div, date);
-  }
-
-  createDiv(style){
-    let div = document.createElement('div');
     let parent = document.getElementById('gantt_Chart');
-    div.setAttribute('class', 'calendarUnitBlock');
-    div.style.backgroundColor = style.color;
-    div.style.width = style.width;
-    parent.appendChild(div);
-    return div;
+    let div = this.createDiv(parent, 'calendarUnitBlock', style);
+
+    let labelDate = this.formatDateForLabelText(date);
+    this.createLabelFor(div, labelDate);
+
+    let endDateInMsWithExtraDay = this.getNewCalendarDate(date).getTime();
+    let endDateInMs = endDateInMsWithExtraDay - this.MilisecondsPerDay;
+    let endDate = new Date(endDateInMs);
+    let calendarBlock = new CalendarBlock(div, date, endDate);
+    this.calendarBlocks.push(calendarBlock);
   }
 
-  createLabelFor(div, date){
-    let label = document.createElement('label');
-    label.setAttribute('class', 'calendarUnitBlockLabel')
+  formatDateForLabelText(date){
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
-    let labelDate = document.createTextNode(month + "/" + day + "/" + year);
-    label.appendChild(labelDate);
-    div.appendChild(label);
+    return (month + "/" + day + "/" + year);
   }
 
   getNewCalendarDate(oldDate){
-    const MilisecondsPerDay = 86400000;
     let numDays = this.convertUnitsToDays(1, oldDate);
-    let numMsInDays = numDays * MilisecondsPerDay;
+    let numMsInDays = numDays * this.MilisecondsPerDay;
     let numMsInDate = oldDate.getTime();
     let newDateTotalMs = numMsInDays + numMsInDate;
     return new Date(newDateTotalMs);
@@ -242,8 +271,171 @@ class CalendarPrinter extends Printer{
 }
 
 class TaskPrinter extends Printer{
-  constructor(){
+  constructor(calendarPrinter, schedule){
     super();
+    this.calendarPrinter = calendarPrinter;
+    this.schedule = schedule;
+    this.divClassName = 'taskDiv';
+    this.labelClassName = 'taskDivLabel';
+  }
+
+  printAllTasks(){
+    for(let i = 0; i < this.schedule.tasks.length; i++){
+      let task = this.schedule.tasks[i];
+      this.printTask(task);
+    }
+  }
+
+  printTask(task){
+    let taskDivStyle = {
+      width: '100px',
+      color: 'white',
+      left: '100px'
+    };
+    let targetDurationStyle = {
+      width: '50px',
+      color: 'red',
+      left: '0px'
+    };
+    let delayDurationStyle = {
+      width: '50px',
+      color: 'green',
+      left: '50px'
+    };
+
+    let ganttChart = document.getElementById('gantt_Chart');
+    let containingDiv = this.createDiv(ganttChart, 'taskDiv', taskDivStyle);
+    let targetDuration = this.createDiv(containingDiv, 'taskDivChild', targetDurationStyle);
+    let delayDuration = this.createDiv(containingDiv, 'taskDivChild', delayDurationStyle);
+  }
+
+  addCalendarBlocksToTasks(){
+    for(let i = 0; i < this.schedule.tasks.length; i++){
+      let task = this.schedule.tasks[i];
+      let calendarBlocksToAdd = this.createArrayOfBlocksInTask(task);
+      task.setCalendarBlocksInTask(calendarBlocksToAdd);
+      console.log(task);
+    }
+  }
+
+  createArrayOfBlocksInTask(task){
+    let array = []
+    for(let i = 0; i < this.calendarPrinter.calendarBlocks.length; i++){
+      let calendarBlock = this.calendarPrinter.calendarBlocks[i];
+      if(this.checkIfBlockIsInTask(task, calendarBlock)){
+        array.push(calendarBlock);
+      }
+    }
+    return array;
+  }
+
+  checkIfBlockIsInTask(task, calendarBlock){
+    let taskStartDateMs = task.startDate.getTime();
+    let taskEndDateMs = task.endDate.getTime();
+    let cbStartDateMS = calendarBlock.startDate.getTime();
+    let cbEndDateMs = calendarBlock.endDate.getTime();
+    if(taskEndDateMs < cbStartDateMS || taskStartDateMs > cbEndDateMs){
+      return false;
+    }
+    return true;
+  }
+}
+
+class CalendarBlock{
+  constructor(div, startDate, endDate){
+    this.element = div;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.tasksInBlock = [];
+  }
+
+  setTasksInBlock(array){
+    this.tasksInBlock = array;
+  }
+}
+class TaskAdder{
+  constructor(schedule){
+    this.name;
+    this.duration;
+    this.startDate;
+    this.endDate;
+    this.parents = [];
+    this.task;
+    this.schedule = schedule;
+    this.nameField = document.getElementById('taskName');
+    this.durationField = document.getElementById('targetDuration');
+    this.startDateField = document.getElementById('startDate');
+    this.parentsField = document.getElementById('parentTaskList');
+  }
+
+  addNewTaskToSchedule(e){
+    if(e)
+      e.preventDefault();
+    this.getDataFromForm();
+    this.calculateEndDate();
+    this.createTask();
+    this.schedule.addTaskToSchedule(this.task);
+    this.clearForm();
+  }
+
+  getDataFromForm(){
+    this.name = this.nameField.value;
+    this.duration = Number (this.durationField.value);
+    this.startDate = new Date(this.startDateField.value.replace(/-/g, '/'));
+    this.parents = this.parentsField.value.split(',');
+  }
+
+  calculateEndDate(){
+    const MilisecondsPerDay = 86400000;
+    let startDateInMs = this.startDate.getTime();
+    let durationInMs = this.duration * MilisecondsPerDay;
+    let endDateInMs = startDateInMs + durationInMs;
+    this.endDate = new Date(endDateInMs);
+  }
+
+  createTask(){
+    this.task = new Task(this.name, [], [], this.startDate, this.endDate);
+  }
+
+  clearForm(){
+    this.nameField.value = '';
+    this.durationField.value = '';
+    this.startDateField.value = '';
+    this.parentsField.value = '';
+  }
+}
+
+class TaskOrganizer{
+  constructor(schedule){
+    this.schedule = schedule;
+    this.organizedTasks = [];
+  }
+
+  groupTaskFamilies(){
+    for(let i = 0; i < this.schedule.tasks.length; i++){
+      let task = this.schedule.tasks[i];
+      if(!task.masterParent){ //task is root level, check all of its children tasks
+        this.addTaskToOrganizedList(task);
+      }
+    }
+  }
+
+  addTaskToOrganizedList(task){
+    this.organizedTasks.push(task);
+    this.checkAllChildren(task);
+  }
+
+  checkAllChildren(task){
+    for(let i = 0; i < task.children.length; i++){
+      let child = task.children[i];
+      if(child.masterParent === task){
+        this.addTaskToOrganizedList(child);
+      }
+    }
+  }
+
+  updateSchedule(){
+    this.schedule.replaceTasksWithOrganized(this.organizedTasks);
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -251,9 +443,17 @@ class TaskPrinter extends Printer{
 ////////////////////////////////////////////////////////////////////////////////
 let systemIdGenerator = new SystemIdGenerator();
 let calendarPrinter = new CalendarPrinter();
+let schedule = new Schedule();
+let taskAdder = new TaskAdder(schedule);
+
 calendarPrinter.printCalendar();
 
 window.addEventListener('resize', calendarPrinter.assignLabelPosition, false);
+
+let btn = document.getElementById('submitTask');
+btn.addEventListener('click', function(e){
+  taskAdder.addNewTaskToSchedule(e);
+},false);
 ////////////////////////////////////////////////////////////////////////////////
 //Test Suite
 ////////////////////////////////////////////////////////////////////////////////
@@ -269,6 +469,10 @@ function runAllTests(){
   TaskPrinterTestSuite.runAllTaskPrinterTests();
   console.log(' ');
   PrinterTestSuite.runAllPrinterTests();
+  console.log(' ');
+  TaskAdderTestSuite.runAllTaskAdderTests();
+  console.log(' ');
+  taskOrganizerTestSuite.runAllTaskOrganizerTests();
 }
 
 function runTest(testPass, testName){
@@ -464,12 +668,41 @@ let CalendarPrinterTestSuite = {
 }
 
 let TaskPrinterTestSuite = {
-  tp: new TaskPrinter,
+  taskPrinter: null,
+  taskAdder: null,
+
 
   runAllTaskPrinterTests: function(){
     console.log('Task Printer Test Suite: ');
-  }
+    runTest(this.testPrintTask(), 'Print Task');
+    runTest(this.testAddTasksToCalendarBlocks(), 'add tasks to calendarBlocks');
+  },
 
+  testPrintTask: function(){
+    this.setUp();
+  },
+
+  testAddTasksToCalendarBlocks: function(){
+    this.setUp();
+    this.taskPrinter.addCalendarBlocksToTasks();
+  },
+
+  setUp: function(){
+    let schedule = new Schedule();
+    this.taskPrinter = new TaskPrinter(calendarPrinter, schedule);
+    this.taskAdder = new TaskAdder(schedule);
+    this.createMockTasks();
+  },
+
+  createMockTasks: function(){
+    for(let i = 0; i < 5; i++){
+      this.taskAdder.name = i;
+      this.taskAdder.startDate = new Date(2016,i,1);
+      this.taskAdder.endDate = new Date(2016,10,5);
+      this.taskAdder.createTask();
+      this.taskAdder.schedule.addTaskToSchedule(this.taskAdder.task);
+    }
+  }
 }
 
 let PrinterTestSuite = {
@@ -518,4 +751,161 @@ let PrinterTestSuite = {
     return false;
   }
 }
+
+let TaskAdderTestSuite = {
+  taskAdder: new TaskAdder(new Schedule),
+
+  setUp: function(){
+    this.taskAdder = new TaskAdder(new Schedule);
+    this.name = document.getElementById('taskName').value = 'test';
+    this.duration = document.getElementById('targetDuration').value = '5';
+    this.startDate = document.getElementById('startDate').value = '2016-08-02';
+    this.parents = document.getElementById('parentTaskList').value = '1,2,3,44,5';
+  },
+
+  cleanUp: function(){
+    document.getElementById('taskName').value = '';
+    document.getElementById('targetDuration').value = '';
+    document.getElementById('startDate').value = '';
+    document.getElementById('parentTaskList').value = '';
+    this.name = this.duration = this.startDate = this.parents = null;
+  },
+
+  runAllTaskAdderTests: function(){
+    console.log('Task Adder Test Suite:');
+    runTest(this.testAddNewTaskToSchedule(), 'Add new task to schedule');
+    runTest(this.testGetDataFromForm(), 'get Data From Form');
+    runTest(this.testCalculateEndDate(), 'Calculate endDate');
+  },
+
+  testAddNewTaskToSchedule: function(){
+    this.setUp();
+    this.taskAdder.addNewTaskToSchedule();
+    this.cleanUp();
+
+    if(this.taskAdder.schedule.tasks[0] instanceof Task)
+      return true;
+    return false;
+  },
+
+  testGetDataFromForm: function(){
+    this.setUp();
+    this.taskAdder.getDataFromForm();
+    let testPass = false;
+
+    if(this.name === 'test' && this.startDate === '2016-08-02' && this.duration === '5' && this.parents == [1,2,3,44,5])
+      testPass = true;
+
+    this.cleanUp();
+    return testPass;
+  },
+
+  testCalculateEndDate: function(){
+    this.setUp();
+    this.taskAdder.startDate = new Date(2016, 0, 1);
+    this.taskAdder.duration = 366;
+    this.cleanUp();
+
+    this.taskAdder.calculateEndDate();
+
+    if(this.taskAdder.endDate.getTime() == new Date(2017, 0 , 1).getTime())
+      return true;
+    return false;
+  }
+}
+
+class TaskOrganizerTestSuite{
+  constructor(schedule){
+    this.taskAdder = new TaskAdder(schedule);
+    this.taskOrganizer = new TaskOrganizer(schedule);
+  }
+
+  runAllTaskOrganizerTests(){
+    console.log('Task Organizer Test Suite:');
+    runTest(this.testGroupTaskFamilies(), 'Group Task Families');
+    runTest(this.testUpdateSchedule(), 'Update Schedule');
+  }
+
+  testGroupTaskFamilies(){
+    this.setUp();
+    this.taskOrganizer.groupTaskFamilies();
+
+    let results = this.getResults(this.taskOrganizer.organizedTasks);
+
+    if(this.compareArrays(results, [4,3,2,1,0]))
+      return true;
+    return false;
+  }
+
+  testUpdateSchedule(){
+    this.setUp();
+    this.taskOrganizer.groupTaskFamilies();
+    this.taskOrganizer.updateSchedule();
+
+    let results = this.getResults(this.taskOrganizer.schedule.tasks);
+
+    if(this.compareArrays(results, [4,3,2,1,0]))
+      return true;
+    return false;
+  }
+
+  setUp(){
+    let freshSchedule = new Schedule();
+    this.taskAdder = new TaskAdder(freshSchedule);
+    this.taskOrganizer = new TaskOrganizer(freshSchedule);
+    this.createMockTasks();
+    this.assignLineage();
+  }
+
+  createMockTasks(){
+    for(let i = 0; i < 5; i++){
+      this.taskAdder.name = i;
+      this.taskAdder.startDate = new Date(2016,i,1);
+      this.taskAdder.endDate = new Date(2016,i,5);
+      this.taskAdder.createTask();
+      this.taskAdder.schedule.addTaskToSchedule(this.taskAdder.task);
+    }
+  }
+
+  assignLineage(){
+    let taskList = this.taskAdder.schedule;
+    let task0 = taskList.tasks[0];
+    let task1 = taskList.tasks[1];
+    let task2 = taskList.tasks[2];
+    let task3 = taskList.tasks[3];
+    let task4 = taskList.tasks[4];
+
+    task0.addParent(task1);
+    task1.addParent(task2);
+    task2.addParent(task3);
+    task3.addParent(task4);
+
+    task0.setMasterParent();
+    task1.setMasterParent();
+    task2.setMasterParent();
+    task3.setMasterParent();
+  }
+
+  getResults(arr){
+    let results = [];
+    for(let i = 0; i < arr.length; i++){
+      results[i] = arr[i].name;
+    }
+    return results;
+  }
+
+  compareArrays(arr1, arr2){
+    if(arr1.length != arr2.length)
+      return false;
+    for(let i = 0; i < arr1.length; i++){
+      if(arr1[i] != arr2[i])
+        return false;
+    }
+    return true;
+  }
+
+
+}
+let taskOrganizerTestSuite = new TaskOrganizerTestSuite(new Schedule);
+
 runAllTests();
